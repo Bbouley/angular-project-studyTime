@@ -5,10 +5,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session');
+var mongoose = require('mongoose');
 
 
 // *** routes *** //
-var routes = require('./routes/routes.js');
+var routes = require('./routes/index.js');
 var apiRoutes = require('./routes/api.js');
 
 
