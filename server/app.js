@@ -18,6 +18,9 @@ var apiRoutes = require('./routes/api.js');
 // *** express instance *** //
 var app = express();
 
+// *** mongoose *** //
+mongoose.connect('mongodb://localhost/study-time');
+
 
 // *** config middleware *** //
 app.use(logger('dev'));
@@ -26,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //defines where to load the static html files from
 app.use(express.static(path.join(__dirname, '../client')));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // *** main routes *** //
 app.use('/', routes);

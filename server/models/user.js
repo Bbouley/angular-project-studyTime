@@ -10,3 +10,5 @@ var User = new Schema({
     oauthID : String
   }
 );
+
+module.exports = mongoose.model('users', User);

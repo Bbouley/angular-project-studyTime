@@ -28,10 +28,10 @@ router.get('/auth/github',
   github.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/auth/github/callback',
-  github.authenticate('github', { failureRedirect: '/login' }),
+  github.authenticate('github', { failureRedirect: '/index' }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    console.log(req.user);
+    res.json(req.user);
   });
 
 
