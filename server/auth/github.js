@@ -10,16 +10,21 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
 
-    console.log(accessToken);
-    console.log(profile);
+    console.log('hitting - github - access token: ' + accessToken);
+    console.log('Github - user- profile: ' + profile);
+    var stringifiedProfile = JSON.stringify(profile);
+    var parsedProfile = JSON.parse(stringifiedProfile);
+    console.log(parsedProfile);
 
      var searchQuery = {
-      name : profile.username
+      name : parsedProfile.username
     };
 
     var updates = {
-      name : profile.username,
-      oauthID : profile.id
+      name : parsedProfile.username,
+      oauthID : parsedProfile.id,
+      resources : [],
+      posts : []
     };
 
     var options = {
@@ -30,6 +35,7 @@ passport.use(new GitHubStrategy({
         if(err){
           return done(err);
         } else {
+          console.log(user);
           return done(null, user);
         }
     });

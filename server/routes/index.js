@@ -10,10 +10,6 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../../client/views', 'index.html'));
 });
 
-router.get('/user', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../../client/views', 'user.html'));
-});
-
 router.get('/resources', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../../client/views', 'resources.html'));
 });
@@ -28,11 +24,23 @@ router.get('/auth/github',
   github.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/auth/github/callback',
-  github.authenticate('github', { failureRedirect: '/index' }),
+  github.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
-    console.log(req.user);
-    res.json(req.user);
+    res.redirect('/user');
   });
+
+function ensureAuthenticated(req, res, next){
+  console.log(req.isAuthenticated());
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    res.json('You are not authenticated');
+  }
+}
+
+router.get('/user', ensureAuthenticated, function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../../client/views', 'user.html'));
+});
 
 
 

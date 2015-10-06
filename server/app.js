@@ -29,6 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //defines where to load the static html files from
 app.use(express.static(path.join(__dirname, '../client')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
