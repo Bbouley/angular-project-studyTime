@@ -1,18 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-var Resource = new Schema({
-  link: String,
-  tags : [String],
-  rating : Number,
-  review : String,
-});
-
-var Post = new Schema({
-  title : String,
-  date : Date,
-  tags : [String],
-});
+var Post = require('./posts.js');
+var Tutorial = require('./tutorials.js');
 
 var User = new Schema({
   name: {
@@ -21,7 +10,7 @@ var User = new Schema({
     index: {unique : true}
     },
     oauthID : String,
-    resources : [Resource],
+    resources : [Tutorial],
     posts : [Post]
   }
 );

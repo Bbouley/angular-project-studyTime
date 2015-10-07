@@ -1,4 +1,6 @@
 // *** main dependencies *** //
+require('dotenv').load();
+var config = require('../_config.js');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,14 +14,21 @@ var mongoose = require('mongoose');
 
 // *** routes *** //
 var routes = require('./routes/index.js');
-var apiRoutes = require('./routes/api.js');
+var tutorialRoutes = require('./routes/tutorialApi.js');
+var userPostRoutes = require('./routes/userPosts.js');
 
 
 // *** express instance *** //
 var app = express();
 
 // *** mongoose *** //
-mongoose.connect('mongodb://localhost/study-time');
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+  if(err) {
+    console.log('Error connecting to the database. ' + err);
+  } else {
+    console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+  }
+});
 
 
 // *** config middleware *** //
@@ -30,7 +39,7 @@ app.use(cookieParser());
 //defines where to load the static html files from
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.secretKey,
   resave: true,
   saveUninitialized: true
 }));
@@ -39,7 +48,8 @@ app.use(passport.session());
 
 // *** main routes *** //
 app.use('/', routes);
-app.use('/api/v1/', apiRoutes);
+app.use('/api/usertutorials/', tutorialRoutes);
+app.use('/api/userposts/', userPostRoutes);
 
 
 // catch 404 and forward to error handler

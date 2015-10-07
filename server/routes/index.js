@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose-q')(require('mongoose'));
 var User = require('../models/user');
+var Tutorial = require('../models/tutorials');
+var Post = require('../models/posts');
 var passport = require('passport');
 var github = require('../auth/github');
 
