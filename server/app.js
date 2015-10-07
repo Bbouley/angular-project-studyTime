@@ -16,6 +16,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index.js');
 var tutorialRoutes = require('./routes/tutorialApi.js');
 var userPostRoutes = require('./routes/userPosts.js');
+var userRoutes = require('./routes/users.js');
 
 
 // *** express instance *** //
@@ -48,8 +49,9 @@ app.use(passport.session());
 
 // *** main routes *** //
 app.use('/', routes);
-app.use('/api/usertutorials/', tutorialRoutes);
-app.use('/api/userposts/', userPostRoutes);
+app.use('/usertutorials/', tutorialRoutes);
+app.use('/userposts/', userPostRoutes);
+app.use('/users/', userRoutes);
 
 
 // catch 404 and forward to error handler

@@ -10,8 +10,8 @@ var User = new Schema({
     index: {unique : true}
     },
     oauthID : String,
-    resources : [Tutorial],
-    posts : [Post]
+    tutorials : [{ type : Schema.Types.ObjectId, ref : 'tutorials'}],
+    // posts : [{ type : Schema.Types.ObjectId, ref : 'posts'}]
   }
 );
 
