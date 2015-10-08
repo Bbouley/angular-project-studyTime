@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 // *** routes *** //
 var routes = require('./routes/index.js');
 var tutorialRoutes = require('./routes/tutorialApi.js');
-var userPostRoutes = require('./routes/userPosts.js');
+var userNoteRoutes = require('./routes/userNotes.js');
 var userRoutes = require('./routes/users.js');
 
 
@@ -50,7 +50,7 @@ app.use(passport.session());
 // *** main routes *** //
 app.use('/', routes);
 app.use('/usertutorials/', tutorialRoutes);
-app.use('/userposts/', userPostRoutes);
+app.use('/notes/', userNoteRoutes);
 app.use('/users/', userRoutes);
 
 

@@ -4,7 +4,7 @@ var path = require('path');
 var mongoose = require('mongoose-q')(require('mongoose'));
 var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
-var Post = require('../models/posts');
+var Note = require('../models/notes');
 var passport = require('passport');
 var github = require('../auth/github');
 
@@ -32,7 +32,7 @@ router.get('/auth/github/callback',
   });
 
 function ensureAuthenticated(req, res, next){
-  console.log(req.isAuthenticated());
+  console.log(req.body);
   if(req.isAuthenticated()){
     return next();
   } else {

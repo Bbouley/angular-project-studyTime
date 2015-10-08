@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Post = require('./posts.js');
 var Tutorial = require('./tutorials.js');
+var Note = require('./notes.js');
 
 var User = new Schema({
   name: {
@@ -11,7 +11,7 @@ var User = new Schema({
     },
     oauthID : String,
     tutorials : [{ type : Schema.Types.ObjectId, ref : 'tutorials'}],
-    // posts : [{ type : Schema.Types.ObjectId, ref : 'posts'}]
+    posts : [{ type : Schema.Types.ObjectId, ref : 'notes'}]
   }
 );
 

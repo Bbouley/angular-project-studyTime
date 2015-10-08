@@ -4,7 +4,7 @@ var path = require('path');
 var mongoose = require('mongoose-q')(require('mongoose'));
 var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
-var Post = require('../models/posts');
+var Note = require('../models/notes');
 
 //get all users
 router.get('/', function(req, res, next){
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next){
 });
 
 
-//get single user information, populate with tutorials
+//get single user information
 router.get('/:id', function(req, res, next){
   User.findById(req.params.id)
   .then(function(result){
@@ -29,30 +29,11 @@ router.get('/:id', function(req, res, next){
   })
   .done();
 
-  // User.findOneQ({oauthID : req.params.id})
-  // .populate('tutorials')
-  // .execQ()
-  // .then(function(result){
-  //   console.log(result);
-  //   res.json(result);
-  // })
-  // .catch(function(err){
-  //   console.log(err);
-  //   res.send(err);
-  // });
-
-
-  // .then(function(result){
-  //   result.populate('')
-  // })
-  // .catch(function(err){
-  //   res.send(err);
-  // });
 });
 
-//get all tutorials from that user
-router.get('/:id/tutorials', function(req, res, next){
- User.findById(req.params.id)
+//get all tutorials from a single user
+router.get('/:userid/tutorials', function(req, res, next){
+ User.findById(req.params.userid)
   .populate('tutorials')
   .exec(function(err, user){
     if(err){
@@ -64,8 +45,44 @@ router.get('/:id/tutorials', function(req, res, next){
   });
 });
 
+//get single tutorial from a single user
+router.get('/:userid/tutorial/:tutorialid', function(req, res, next){
+  User.findById(req.params.userid)
+  .populate('tutorials')
+  .exec(function(err, user){
+    if(err){
+      console.log(err);
+    } else {
+      Tutorial.findByIdQ(req.params.tutorialid)
+      .then(function(result){
+        res.json(result);
+      })
+      .catch(function(err){
+        res.send(err);
+      });
+    }
+  });
+});
 
-//post single posts
+//post to add single tutorial to a user
+router.post('/:userid/tutorials', function(req, res, next){
+  var newTutorial = new Tutorial(req.body);
+  newTutorial.save();
+  var id = req.params.userid;
+  var update = {$push : { tutorials : newTutorial } };
+  var options = {new :true };
+  User.findByIdAndUpdateQ(id, update, options)
+  .then(function(result){
+    res.json(result);
+  })
+  .catch(function(err){
+    res.send({'ERROR' : err});
+  })
+  .done();
+});
+
+
+//testing out schema in a post route
 router.post('/', function(req, res, next){
 
   var testTutorial = new Tutorial({
@@ -96,12 +113,6 @@ router.post('/', function(req, res, next){
   });
 
 });
-
-
-//edit single posts
-
-
-//delete single posts
 
 
 

@@ -7,7 +7,7 @@ a {
 }
 
 .border{
-  border: black solid 1px;
+  border-bottom: black solid 1px;
 }
 
 .title-container{

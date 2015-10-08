@@ -4,10 +4,7 @@ var path = require('path');
 var mongoose = require('mongoose-q')(require('mongoose'));
 var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
-var Post = require('../models/posts');
-
-//get all user tutorials
-
+var Note = require('../models/notes');
 
 
 //get all tutorials
@@ -35,17 +32,17 @@ router.get('/tutorial/:id', function(req, res, next){
 });
 
 //post single tutorial
-router.post('/tutorials', function(req, res, next){
-  newTutorial = new Tutorial(req.body.tutorial);
-  newTutorial.saveQ()
-  .then(function(result){
-    res.json(result);
-  })
-  .catch(function(err){
-    res.send({'ERROR' : err});
-  })
-  .done();
-});
+// router.post('/tutorials', function(req, res, next){
+//   newTutorial = new Tutorial(req.body.tutorial);
+//   newTutorial.saveQ()
+//   .then(function(result){
+//     res.json(result);
+//   })
+//   .catch(function(err){
+//     res.send({'ERROR' : err});
+//   })
+//   .done();
+// });
 
 //edit single tutorial
 router.put('/tutorial/:id', function(req, res, next){
