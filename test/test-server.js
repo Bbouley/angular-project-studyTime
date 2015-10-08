@@ -480,27 +480,57 @@ describe('Add Notes', function(){
   it('should list all notes on /notes', function(done){
     chai.request(server)
     .get('/usernotes/notes')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body[0].should.be.a('object');
+      res.body[0].should.have.property ('title');
+      res.body[0].should.have.property ('date');
+      res.body[0].should.have.property ('tags');
+      res.body[0].title.should.equal('New Note 1');
+      res.body[0].tags.should.be.a('array');
+      res.body[0].tags.length.should.equal(2);
+      done();
+    });
   });
 
 
   it('should list a single note on /notes/:id', function(done){
-
+    chai.request(server)
+    .get('/usernotes/notes')
+    .end(function(error, response){
+      chai.request(server)
+      .get('/usernotes/notes/' + response.body[0]._id)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('title');
+        res.body.should.have.property('date');
+        res.body.should.have.property('tags');
+        res.body.tags.should.be.a('array');
+        res.body.tags.length.should.equal(2);
+        res.body.title.should.equal('New Note 1');
+        done();
+      });
+    });
   });
 
 
-  it('should post a single note on /notes', function(done){
+  // it('should post a single note on /notes', function(done){
 
-  });
-
-
-  it('should edit a single note on /notes/:id', function(done){
-
-  });
+  // });
 
 
-  it('should delete a single note on /notes/:id', function(done){
+  // it('should edit a single note on /notes/:id', function(done){
 
-  });
+  // });
+
+
+  // it('should delete a single note on /notes/:id', function(done){
+
+  // });
 
 
 });

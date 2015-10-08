@@ -50,7 +50,7 @@ app.use(passport.session());
 // *** main routes *** //
 app.use('/', routes);
 app.use('/usertutorials/', tutorialRoutes);
-app.use('/notes/', userNoteRoutes);
+app.use('/usernotes/', userNoteRoutes);
 app.use('/users/', userRoutes);
 
 
