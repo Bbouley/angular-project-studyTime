@@ -68,6 +68,7 @@ router.get('/:userid/tutorial/:tutorialid', function(req, res, next){
 router.post('/:userid/tutorials', function(req, res, next){
   var newTutorial = new Tutorial(req.body);
   newTutorial.save();
+
   var id = req.params.userid;
   var update = {$push : { tutorials : newTutorial } };
   var options = {new :true };

@@ -501,7 +501,7 @@ describe('Add Notes', function(){
     .get('/usernotes/notes')
     .end(function(error, response){
       chai.request(server)
-      .get('/usernotes/notes/' + response.body[0]._id)
+      .get('/usernotes/note/' + response.body[0]._id)
       .end(function(err, res){
         res.should.have.status(200);
         res.should.be.json;
@@ -523,14 +523,49 @@ describe('Add Notes', function(){
   // });
 
 
-  // it('should edit a single note on /notes/:id', function(done){
+  it('should edit a single note on /notes/:id', function(done){
+    chai.request(server)
+    .get('/usernotes/notes')
+    .end(function(error, response){
+      chai.request(server)
+      .put('/usernotes/note/' + response.body[0]._id)
+      .send({title : 'Testing Put Route'})
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('title');
+        res.body.should.have.property('date');
+        res.body.should.have.property('tags');
+        res.body.title.should.equal('Testing Put Route');
+        res.body.tags.should.be.a('array');
+        res.body.tags.length.should.equal(2);
+        done();
+      });
+    });
+  });
 
-  // });
 
-
-  // it('should delete a single note on /notes/:id', function(done){
-
-  // });
+  it('should delete a single note on /notes/:id', function(done){
+    chai.request(server)
+    .get('/usernotes/notes')
+    .end(function(error, response){
+      chai.request(server)
+      .delete('/usernotes/note/' + response.body[0]._id)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('_id');
+        res.body.should.have.property('title');
+        res.body.should.have.property('date');
+        res.body.should.have.property('tags');
+        res.body.tags.should.be.a('array');
+        res.body.tags.length.should.equal(2);
+        done();
+      });
+    });
+  });
 
 
 });

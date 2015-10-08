@@ -19,7 +19,7 @@ router.get('/notes', function(req, res, next){
 });
 
 // get single posts
-router.get('/notes/:id', function(req, res, next){
+router.get('/note/:id', function(req, res, next){
   Note.findByIdQ(req.params.id)
   .then(function(result){
     res.json(result);
@@ -35,9 +35,31 @@ router.get('/notes/:id', function(req, res, next){
 
 
 //edit single posts
-
+router.put('/note/:id', function(req, res, next){
+  var id = req.params.id;
+  var update = req.body;
+  var options = {new : true};
+  Note.findByIdAndUpdateQ(id, update, options)
+  .then(function(result){
+    res.json(result);
+  })
+  .catch(function(err){
+    res.send(err);
+  })
+  .done();
+});
 
 //delete single posts
+router.delete('/note/:id', function(req, res, next){
+  Note.findByIdAndRemoveQ(req.params.id)
+  .then(function(result){
+    res.json(result);
+  })
+  .catch(function(err){
+    res.send({'ERROR' : err});
+  })
+  .done();
+});
 
 
 
