@@ -11,7 +11,7 @@ var User = new Schema({
     },
     oauthID : String,
     tutorials : [{ type : Schema.Types.ObjectId, ref : 'tutorials'}],
-    posts : [{ type : Schema.Types.ObjectId, ref : 'notes'}]
+    notes : [{ type : Schema.Types.ObjectId, ref : 'notes'}]
   }
 );
 

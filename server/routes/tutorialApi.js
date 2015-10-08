@@ -31,18 +31,6 @@ router.get('/tutorial/:id', function(req, res, next){
   .done();
 });
 
-//post single tutorial
-// router.post('/tutorials', function(req, res, next){
-//   newTutorial = new Tutorial(req.body.tutorial);
-//   newTutorial.saveQ()
-//   .then(function(result){
-//     res.json(result);
-//   })
-//   .catch(function(err){
-//     res.send({'ERROR' : err});
-//   })
-//   .done();
-// });
 
 //edit single tutorial
 router.put('/tutorial/:id', function(req, res, next){
@@ -53,7 +41,7 @@ router.put('/tutorial/:id', function(req, res, next){
     res.json(result);
   })
   .catch(function(err){
-    res.send({'ERROR' : err });
+    res.send(err);
   })
   .done();
 });

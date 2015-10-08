@@ -6,6 +6,7 @@ var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
 var Note = require('../models/notes');
 
+
 //get all posts
 router.get('/notes', function(req, res, next){
   Note.findQ()
@@ -17,6 +18,7 @@ router.get('/notes', function(req, res, next){
   })
   .done();
 });
+
 
 // get single posts
 router.get('/note/:id', function(req, res, next){
@@ -31,15 +33,11 @@ router.get('/note/:id', function(req, res, next){
 });
 
 
-//post single posts
-
-
 //edit single posts
 router.put('/note/:id', function(req, res, next){
-  var id = req.params.id;
   var update = req.body;
-  var options = {new : true};
-  Note.findByIdAndUpdateQ(id, update, options)
+  var options = { new : true };
+  Note.findByIdAndUpdateQ(req.params.id, update, options)
   .then(function(result){
     res.json(result);
   })
@@ -48,6 +46,7 @@ router.put('/note/:id', function(req, res, next){
   })
   .done();
 });
+
 
 //delete single posts
 router.delete('/note/:id', function(req, res, next){

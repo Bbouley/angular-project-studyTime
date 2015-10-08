@@ -18,6 +18,7 @@ describe('Add Users', function(){
     beforeEach(function(done){
       User.collection.drop();
       Tutorial.collection.drop();
+      Note.collection.drop();
 
       var testTutorial = new Tutorial({
         link: 'testlink',
@@ -42,10 +43,30 @@ describe('Add Users', function(){
 
       User.findByIdAndUpdate(id, push, options, function(err, result){
         if(err){
-
+          console.log(err);
         } else {
-
+          // console.log(result);
         }
+      });
+
+      var newNote = new Note({
+        title : 'test note',
+        date : Date.now(),
+        tags: ['test 1', 'test 1']
+      });
+
+      newNote.save();
+
+      var id2 = testUser._id;
+      var push2 = {$push : {notes : newNote}};
+      var options2 = {new:true};
+
+      User.findByIdAndUpdateQ(id2, push2, options2)
+      .then(function(result){
+        // console.log(result);
+      })
+      .catch(function(err){
+        console.log(err);
       });
       done();
     });
@@ -55,6 +76,7 @@ describe('Add Users', function(){
   afterEach(function(done){
     User.collection.drop();
     Tutorial.collection.drop();
+    Note.collection.drop();
     done();
   });
 
@@ -177,17 +199,16 @@ describe('Add Users', function(){
       .post('/users/' + user._id + '/tutorials')
       .send(newTutorial)
       .end(function(err, res){
-        // console.log(res.body);
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.have.property('name');
         res.body.should.have.property('_id');
         res.body.should.have.property('oauthID');
-        res.body.should.have.property('posts');
+        res.body.should.have.property('notes');
         res.body.name.should.equal('Bradley');
         res.body.tutorials.should.be.a('array');
-        // res.body.tutorials.length.should.equal(2);
+        res.body.tutorials.length.should.equal(2);
         done();
       });
 
@@ -200,7 +221,7 @@ describe('Add Users', function(){
     .end(function(error, response){
       chai.request(server)
       .put('/usertutorials/tutorial/' + response.body[0]._id)
-      .send({'link' : 'testing user linked up'})
+      .send({link : 'testing user linked up'})
       .end(function(error2, response2){
         chai.request(server)
         .get('/users/')
@@ -219,6 +240,7 @@ describe('Add Users', function(){
             res.body[0].should.have.property('tags');
             res.body[0].tags.should.be.a('array');
             res.body[0].tags.length.should.equal(2);
+            res.body[0].link.should.equal('testing user linked up');
             done();
           });
         });
@@ -250,6 +272,135 @@ describe('Add Users', function(){
     });
   });
 });
+
+  it('should get all notes for that user', function(done){
+    chai.request(server)
+    .get('/users/')
+    .end(function(error, response){
+      chai.request(server)
+      .get('/users/' + response.body[0]._id + '/notes')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('title');
+        res.body[0].should.have.property('date');
+        res.body[0].should.have.property('tags');
+        res.body[0].tags.should.be.a('array');
+        res.body[0].title.should.equal('test note');
+        res.body[0].tags.length.should.equal(2);
+        done();
+      });
+    });
+  });
+
+
+  it('should get all notes and tutorials for that user', function(done){
+    chai.request(server)
+    .get('/users/')
+    .end(function(error, response){
+      chai.request(server)
+      .get('/users/' + response.body[0]._id + '/all')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.tutorials.should.be.a('array');
+        res.body.notes.should.be.a('array');
+        res.body.tutorials[0].should.be.a('object');
+        res.body.tutorials[0].should.have.property('link');
+        res.body.tutorials[0].should.have.property('tags');
+        res.body.tutorials[0].should.have.property('rating');
+        res.body.tutorials[0].should.have.property('review');
+        res.body.tutorials[0].tags.should.be.a('array');
+        res.body.notes[0].should.be.a('object');
+        res.body.notes[0].should.have.property('title');
+        res.body.notes[0].should.have.property('date');
+        res.body.notes[0].should.have.property('tags');
+        res.body.notes[0].tags.should.be.a('array');
+        done();
+      });
+    });
+  });
+
+  it('should add a note to that user, and save it to main notes collection', function(done){
+    var newNote = new Note({
+      title : 'test post note',
+      date : Date.now(),
+      tags : ['test 2', 'test 2']
+    });
+    chai.request(server)
+    .get('/users/')
+    .end(function(error, response){
+      chai.request(server)
+      .post('/users/' + response.body[0]._id + '/notes')
+      .send(newNote)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('_id');
+        res.body.should.have.property('name');
+        res.body.should.have.property('notes');
+        res.body.notes.should.be.a('array');
+        res.body.notes.length.should.equal(2);
+        done();
+      });
+    });
+  });
+
+  it('should edit a note and then in the user that note should show as edited', function(done){
+    chai.request(server)
+    .get('/usernotes/notes')
+    .end(function(error, response){
+      chai.request(server)
+      .put('/usernotes/note/' + response.body[0]._id)
+      .send({title : 'testing put route'})
+      .end(function(error2, response2){
+        chai.request(server)
+        .get('/users/')
+        .end(function(error3, response3){
+          chai.request(server)
+          .get('/users/' + response3.body[0]._id + '/notes')
+          .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('array');
+            res.body[0].should.be.a('object');
+            res.body[0].should.have.property('title');
+            res.body[0].should.have.property('date');
+            res.body[0].should.have.property('tags');
+            res.body[0].title.should.equal('testing put route');
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  it('should delete a note and then in user show that note as deleted', function(done){
+    chai.request(server)
+    .get('/usernotes/notes')
+    .end(function(error, response){
+      chai.request(server)
+      .delete('/usernotes/note/' + response.body[0]._id)
+      .end(function(error2, response2){
+        chai.request(server)
+        .get('/users/')
+        .end(function(error3, response3){
+          chai.request(server)
+          .get('/users/' + response3.body[0]._id + '/notes')
+          .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('array');
+            res.body.length.should.equal(0);
+            done();
+          });
+        });
+      });
+    });
+  });
 
 });
 

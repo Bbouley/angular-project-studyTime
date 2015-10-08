@@ -6,6 +6,7 @@ var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
 var Note = require('../models/notes');
 
+
 //get all users
 router.get('/', function(req, res, next){
   User.findQ({})
@@ -45,23 +46,53 @@ router.get('/:userid/tutorials', function(req, res, next){
   });
 });
 
-//get single tutorial from a single user
-router.get('/:userid/tutorial/:tutorialid', function(req, res, next){
+
+//get all notes from a single user
+router.get('/:userid/notes', function(req, res, next){
   User.findById(req.params.userid)
+  .populate('notes')
+  .exec(function(err, user){
+    if(err){
+      res.send(err);
+    } else {
+      res.json(user.notes);
+    }
+  });
+});
+
+
+//get all notes and tutorials for a single user
+router.get('/:userid/all', function(req, res, next){
+  User.findById(req.params.userid)
+  .populate('notes')
   .populate('tutorials')
   .exec(function(err, user){
     if(err){
-      console.log(err);
+      res.send(err);
     } else {
-      Tutorial.findByIdQ(req.params.tutorialid)
-      .then(function(result){
-        res.json(result);
-      })
-      .catch(function(err){
-        res.send(err);
-      });
+      res.json(user);
     }
   });
+});
+
+
+//post single note to a user
+router.post('/:userid/notes', function(req, res, next){
+  var newNote = new Note(req.body);
+  newNote.save();
+
+  var id = req.params.userid;
+  var update = {$push : {notes : newNote}};
+  var options = {new : true};
+
+  User.findByIdAndUpdateQ(id, update, options)
+  .then(function(result){
+    res.json(result);
+  })
+  .catch(function(err){
+    res.send(err);
+  });
+
 });
 
 //post to add single tutorial to a user
@@ -80,39 +111,6 @@ router.post('/:userid/tutorials', function(req, res, next){
     res.send({'ERROR' : err});
   })
   .done();
-});
-
-
-//testing out schema in a post route
-router.post('/', function(req, res, next){
-
-  var testTutorial = new Tutorial({
-    link: 'testlink',
-    tags : ['test', 'test'],
-    rating : 9,
-    review: 'this is the review'
-  });
-
-  testTutorial.save();
-
-  var testUser = new User ({
-    name: 'Bradley',
-    oauthID : '67890',
-    tutorials : [testTutorial]
-  });
-
-  testUser.save(function(err){
-    if(!err){
-      User.find({})
-      .populate('tutorials')
-      .exec(function(error, user){
-        if(!error){
-          res.send(user);
-        }
-      });
-    }
-  });
-
 });
 
 
