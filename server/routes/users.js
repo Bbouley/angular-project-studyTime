@@ -6,9 +6,21 @@ var User = require('../models/user');
 var Tutorial = require('../models/tutorials');
 var Post = require('../models/posts');
 
-//get all user information, populate with tutorials
+//get all users
+router.get('/', function(req, res, next){
+  User.findQ({})
+  .then(function(data){
+    res.json(data);
+  })
+  .catch(function(err){
+    res.send(err);
+  });
+});
+
+
+//get single user information, populate with tutorials
 router.get('/:id', function(req, res, next){
-  User.findOneQ({oauthID : '12345'})
+  User.findById(req.params.id)
   .then(function(result){
     res.json(result);
   })
@@ -38,14 +50,25 @@ router.get('/:id', function(req, res, next){
   // });
 });
 
-//get single tutorial
+//get all tutorials from that user
+router.get('/:id/tutorials', function(req, res, next){
+ User.findById(req.params.id)
+  .populate('tutorials')
+  .exec(function(err, user){
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.json(user.tutorials);
+    }
+  });
+});
 
 
 //post single posts
 router.post('/', function(req, res, next){
 
   var testTutorial = new Tutorial({
-    // created_by : testUser._id,
     link: 'testlink',
     tags : ['test', 'test'],
     rating : 9,

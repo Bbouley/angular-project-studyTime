@@ -19,63 +19,135 @@ describe('Add Users', function(){
       User.collection.drop();
       Tutorial.collection.drop();
 
-      var newTutorial = new Tutorial({
-        link: 'www.google.com',
-        tags: ['javascript', 'python'],
-        // rating : 5,
-        review: 'this is google'
+      var testTutorial = new Tutorial({
+        link: 'testlink',
+        tags : ['test', 'test'],
+        rating : 9,
+        review: 'this is the review'
       });
 
-      var newUser = new User({
-        name : 'Mr Test Face',
-        oauthID : '12345',
-        tutorials : [],
-        posts : [],
+      testTutorial.save();
+
+      var testUser = new User ({
+        name: 'Bradley',
+        oauthID : '67890',
+        tutorials : []
       });
 
-      newUser.saveQ()
-      .then(function(result){
-        var update = {$push : { tutorials : newTutorial }};
-        var options = {new : true};
-        User.findByIdAndUpdateQ(newUser.id, update, options)
-        .then(function(result){
-          // console.log(result);
-        })
-        .catch(function(err) {
+      testUser.save();
+
+      var id = testUser._id;
+      var push = {$push : {tutorials : testTutorial}};
+      var options = {new:true};
+
+      User.findByIdAndUpdate(id, push, options, function(err, result){
+        if(err){
           console.log(err);
-        });
-      // console.log(result);
-      })
-      .catch(function(err){
-        // console.log(err);
-      })
-      .done();
+        } else {
+          // console.log(result);
+        }
+      });
       done();
     });
 
 
-  afterEach(function(done){
-    User.collection.drop();
-    Tutorial.collection.drop();
-    done();
-  });
 
-  // it('should list all users on /user get', function(done){
+  // afterEach(function(done){
+  //   User.collection.drop();
+  //   Tutorial.collection.drop();
   //   done();
   // });
 
-  it ('should list all user tutorials on /user/tutorials get', function(done){
-    var oauthID = '12345';
+
+  it ('should list all users on /users/ get', function(done){
+    var newUser = new User({
+      name : 'Super Face',
+      oauthID : '12345',
+      tutorials : []
+    });
+    newUser.save();
     chai.request(server)
-    .get('/users/' + oauthID)
+    .get('/users/')
     .end(function(err, res){
-      console.log(res.body);
       res.should.have.status(200);
       res.should.be.json;
-      res.body.should.be.a('object');
-      // res.body.tutorials.should.be.a('array');
-      // res.body.tutorials[0].should.be.a('object');
+      res.body.should.be.a('array');
+      res.body.length.should.equal(2);
+      res.body[0].should.have.property('name');
+      res.body[0].should.have.property('oauthID');
+      res.body[0].should.have.property('tutorials');
+      res.body[0].tutorials.should.be.a('array');
+      res.body[1].name.should.equal('Super Face');
+      res.body[1].tutorials.length.should.equal(0);
       done();
+    });
+  });
+
+  it('should list a single user on /user/:id get', function(done){
+    var newUser = new User({
+      name : 'Super Face',
+      oauthID : '12345',
+      tutorials : []
+    });
+    newUser.saveQ()
+    .then(function(result){
+      chai.request(server)
+      .get('/users/' + result.id)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('oauthID');
+        res.body.should.have.property('tutorials');
+        res.body.name.should.equal('Super Face');
+        res.body.tutorials.should.be.a('array');
+        res.body.tutorials.length.should.equal(0);
+        done();
+      });
+    });
+  });
+
+  it('should list a single users tutorials on /user/:id/tutorials get', function(done){
+
+    var newTutorial = new Tutorial({
+      link : 'www.github.com',
+      tags : ['things' , 'stuff'],
+      rating : 3,
+      review : 'THIS IS PLACES'
+    });
+
+    newTutorial.save();
+
+    chai.request(server)
+    .get('/users/')
+    .end(function(error, response){
+
+        var id = response.body[0]._id;
+        var push = {$push : {tutorials : newTutorial}};
+        var options = {new:true};
+
+      User.findByIdAndUpdateQ(id, push, options)
+      .then(function(result){
+        console.log(result);
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+
+      chai.request(server)
+      .get('/users/' + response.body[0]._id + '/tutorials')
+      .end(function(err, res){
+        console.log(res.body);
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('link');
+        res.body[0].should.have.property('tags');
+        res.body[0].should.have.property('rating');
+        res.body[0].should.have.property('review');
+        done();
+      });
     });
   });
 
