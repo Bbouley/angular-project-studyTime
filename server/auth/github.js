@@ -21,7 +21,7 @@ passport.use(new GitHubStrategy({
       name : parsedProfile.username,
       oauthID : parsedProfile.id,
       resources : [],
-      posts : []
+      notes : []
     };
 
     var options = {
@@ -32,7 +32,6 @@ passport.use(new GitHubStrategy({
         if(err){
           return done(err);
         } else {
-          console.log(user);
           return done(null, user);
         }
     });

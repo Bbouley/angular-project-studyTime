@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Study Stuff Home</title>
+  <title>Study Stuff Login</title>
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 <body>
-<h1>testing home route</h1>
 
+  <div class = 'title-container border'>
+  <div class = 'row center-text'>
+      <h1 class = 'center-text font-100'>Study Stuff</h1>
+    </div>
+  </div>
+
+  <div class = 'container'>
+
+  <form>
+    <div class = 'row'>
+     <a href = '/auth/github'><input class="button-primary offset-by-three six columns" type="button" value="Sign In with Github"></a>
+    </div>
+    <div class = 'row'>
+      <input class = 'button-primary offset-by-three three columns' type = 'button' value = 'Resources'>
+      <input class = 'button-primary  three columns' type = 'button' value = 'Blog Posts'>
+    </div>
+  </form>
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src = '../js/index/app.js'></script>
+  <script type="text/javascript" src = '../js/index/controllers.js'></script>
+  <script type="text/javascript" src = '../js/index/directives.js'></script>
+  <script type="text/javascript" src = '../js/index/filters.js'></script>
+  <script type="text/javascript" src = '../js/index/services.js'></script>
 </body>
 </html>

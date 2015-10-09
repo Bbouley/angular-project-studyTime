@@ -15,11 +15,6 @@ router.get('/', function(req, res, next) {
 router.get('/resources', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../../client/views', 'resources.html'));
 });
-
-router.get('/login', function(req, res, next){
-  res.sendFile(path.join(__dirname, '../../client/views', 'login.html'));
-});
-
 ///authentication
 
 router.get('/auth/github',
@@ -28,11 +23,11 @@ router.get('/auth/github',
 router.get('/auth/github/callback',
   github.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/user');
+    console.log(req.user);
+    res.redirect('/user/'+req.user._id);
   });
 
 function ensureAuthenticated(req, res, next){
-  console.log(req.body);
   if(req.isAuthenticated()){
     return next();
   } else {
@@ -40,7 +35,10 @@ function ensureAuthenticated(req, res, next){
   }
 }
 
-router.get('/user', ensureAuthenticated, function(req, res, next) {
+
+router.get('/user/:id', ensureAuthenticated, function(req, res, next) {
+  var user = req.user;
+  // console.log(user);
   res.sendFile(path.join(__dirname, '../../client/views', 'user.html'));
 });
 
