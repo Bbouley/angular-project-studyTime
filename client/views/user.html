@@ -1,21 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app = 'userApp'>
 <head>
   <meta charset="UTF-8">
   <title>Study Stuff User</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
   <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
-<body>
+<body ng-controller = 'UserController'>
+
   <div class = 'title-container border'>
     <div class = 'row center-text'>
       <h1 class = 'center-text font-100'>Welcome</h1>
-       <h4>{{user}}</h4>
+       <h4>{{user.name}}</h4>
     </div>
   </div>
+
+  <div class = 'container'>
+
+    <div class = 'row'>
+      <button class = 'offset-by-four four columns button-primary'>Add Tutorial</button>
+    </div>
+
+    <div class = 'row'>
+      <form>
+
+        <div class = 'row'>
+
+          <div class = 'six columns'>
+            <label for = 'tutorialLink'>Link</label>
+            <input class = 'u-full-width' type = 'url' id = 'tutorialLink' ng-model = 'tutorial.link'>
+          </div>
+
+          <div class = 'three columns'>
+            <label for = 'tutorialTag'>Tags</label>
+            <input class = 'u-full-width' type = 'text' id = 'tutorialTags' ng-model = 'tutorial.tags'>
+          </div>
+
+          <div class = 'three columns'>
+            <label for = 'tutorialRating'>Rating</label>
+            <select class = 'u-full-width' class = 'three columns' id = 'tutorialRating' ng-model = 'tutorial.rating'>
+              <option value = '1'>1</option>
+              <option value = '2'>2</option>
+              <option value = '3'>3</option>
+              <option value = '4'>4</option>
+              <option value = '5'>5</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class = 'row'>
+
+          <div class = 'twelve columns'>
+            <label for = 'tutorialReview'>Review</label>
+            <textarea class = 'u-full-width' placeholder = 'review this tutorial' id = 'tutorialReview' ng-model = 'tutorial.review'></textarea>
+          </div>
+
+        </div>
+
+        <div class = 'row'>
+          <div class = 'offset-by-four four columns'>
+            <button class = 'button-primary u-full-width' ng-click = 'submitTutorial()'>Submit Tutorial</button>
+          </div>
+        </div>
+
+        <div class = 'row'>
+          <div class = 'offset-by-four four columns'>
+            <button class = 'button-primary u-full-width' ng-click = 'submitEditedTutorial(tutorial._id)'>Edit Tutorial</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  <h3 class = 'underline center-text'>Tutorials</h3>
+    <table class = 'u-full-width underline'>
+      <thead>
+        <tr class = 'border-underneath'>
+          <th class = 'four columns'>Link</th>
+          <th class = 'three columns'>Tags</th>
+          <th class = 'three columns'>Rating</th>
+          <th class = 'one column left-text'>Edit</th>
+          <th class = 'left-text one column'>Del</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
+          <td class = 'four columns'>{{tutorial.link}}</td>
+          <td class = 'three columns'>{{tutorial.tags[0]}}</td>
+          <td class = 'three columns'>{{tutorial.rating}}</td>
+          <td class = 'one column center-text'>
+                <span class="fa fa-pencil"  ng-click = 'showEditUserTutorial(tutorial._id)'></span>
+           </td>
+           <td class = 'one column center-text'>
+             <span class="fa fa-times" ng-click = 'deleteTutorial(tutorial._id)'></span>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+     <div class = 'row'>
+      <button class = 'offset-by-four four columns button-primary'>Add Note</button>
+    </div>
+
+
+     <div class = 'row'>
+      <form>
+
+        <div class = 'row'>
+
+          <div class = 'nine columns'>
+            <label for = 'noteTitle'>Title</label>
+            <input class = 'u-full-width' type = 'text' id = 'noteTitle' ng-model = 'note.title'>
+          </div>
+
+          <div class = 'three columns'>
+            <label for = 'noteTag'>Tags</label>
+            <input class = 'u-full-width' type = 'text' id = 'noteTags' ng-model = 'note.tags'>
+          </div>
+
+
+        <div class = 'row'>
+          <div class = 'offset-by-four four columns'>
+            <button class = 'button-primary u-full-width' ng-click = 'submitNote()'>Submit Note</button>
+          </div>
+        </div>
+
+
+        <div class = 'row'>
+          <div class = 'offset-by-four four columns'>
+            <button class = 'button-primary u-full-width' ng-click = 'submitEditedNote(note._id)'>Edit Note</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+
+
+  <h3 class = 'underline center-text'>Notes</h3>
+    <table class = 'u-full-width'>
+      <thead>
+        <tr>
+          <th class = 'four columns'>Title</th>
+          <th class = 'three columns'>Tags</th>
+          <th class = 'three columns'>Date</th>
+          <th class = 'one column'>Edit</th>
+          <th class = 'one column'>Del</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat = 'note in userNotes'>
+          <td class = 'four columns'>{{note.title}}</td>
+          <td class = 'three columns'>{{note.tags[0]}}</td>
+          <td class = 'three columns'>{{note.date | date : 'short'}}</td>
+          <td class = 'one column center-text'>
+                <span class="fa fa-pencil" ng-click = 'showEditUserNote(note._id)'></span>
+           </td>
+           <td class = 'one column center-text'>
+             <span class="fa fa-times" ng-click = 'deleteNote(note._id)'></span>
+           </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
+  <!--  // <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
   <script type="text/javascript" src = '../js/user/app.js'></script>
   <script type="text/javascript" src = '../js/user/controllers.js'></script>
   <script type="text/javascript" src = '../js/user/directives.js'></script>

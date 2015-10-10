@@ -70,6 +70,7 @@ router.get('/:userid/all', function(req, res, next){
     if(err){
       res.send(err);
     } else {
+      console.log('server side', user);
       res.json(user);
     }
   });
@@ -91,7 +92,8 @@ router.post('/:userid/notes', function(req, res, next){
   })
   .catch(function(err){
     res.send(err);
-  });
+  })
+  .done();
 
 });
 

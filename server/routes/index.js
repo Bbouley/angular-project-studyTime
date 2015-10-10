@@ -23,7 +23,6 @@ router.get('/auth/github',
 router.get('/auth/github/callback',
   github.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
-    console.log(req.user);
     res.redirect('/user/'+req.user._id);
   });
 

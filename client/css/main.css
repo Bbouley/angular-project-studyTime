@@ -6,8 +6,9 @@ a {
   color: #00B7FF;
 }
 
+
 .border{
-  border-bottom: black solid 1px;
+  border: black solid 1px;
 }
 
 .title-container{
@@ -24,3 +25,26 @@ a {
 .font-100{
   font-size: 100px;
 }
+
+.underline{
+  text-decoration: underline;
+}
+
+.left-text{
+  text-align: left;
+}
+
+.fa-pencil{
+  padding-left: 8px;
+}
+
+.fa-times:hover{
+  color: red;
+  cursor: pointer;
+}
+
+.fa-pencil:hover{
+  color: orange;
+  cursor: pointer;
+}
+
