@@ -99,6 +99,7 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         var url = 'https://api.github.com/user?access_token=' + $scope.user.oauthID;
         UserFactory.get(url)
         .then(function(response){
+          console.log(response.data);
         $scope.githubInfo = response.data;
     });
       });

@@ -18,9 +18,17 @@
       <div class = 'offset-by-four four columns'>
       <h1 class = 'center-text font-100'>Welcome</h1>
        <h4>{{user.name}}</h4>
+       <h4>How is {{githubInfo.location}} today?</h4>
        </div>
       <div class = 'four columns user-image'>
-        <img src = '{{githubInfo.avatar_url}}' height = '200'>
+        <img src = '{{githubInfo.avatar_url}}' height = '230'>
+      </div>
+       <div class = 'offset-by-nine two columns center-text logout'>
+       <a href = '/'>
+        <button class = 'u-full-width button-primary'>
+        Logout
+        </button>
+        </a>
       </div>
     </div>
   </div>

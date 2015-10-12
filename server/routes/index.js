@@ -40,6 +40,11 @@ router.get('/user/:id', ensureAuthenticated, function(req, res, next) {
   res.sendFile(path.join(__dirname, '../../client/views', 'user.html'));
 });
 
+router.get('/logout', ensureAuthenticated, function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 
 
 

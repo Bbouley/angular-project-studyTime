@@ -187,5 +187,14 @@ a {
 
 .user-image{
   height: 200px;
+  padding-top: 10px;
 }
+
+img{
+  border: solid #33C3F0 1px
+}
+
+/*.logout{
+  padding-top: 20px;
+}*/
 
