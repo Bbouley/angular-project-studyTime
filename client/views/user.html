@@ -24,23 +24,24 @@
     </div>
 
     <div class = 'row'>
-      <form>
+
+      <form name = 'tutorialForm'>
 
         <div class = 'row'>
 
           <div class = 'six columns'>
             <label for = 'tutorialLink'>Link</label>
-            <input class = 'u-full-width' type = 'url' id = 'tutorialLink' ng-model = 'tutorial.link'>
+            <input class = 'u-full-width' type = 'url' id = 'tutorialLink' ng-model = 'tutorial.link' required>
           </div>
 
           <div class = 'three columns'>
             <label for = 'tutorialTag'>Tags</label>
-            <input class = 'u-full-width' type = 'text' id = 'tutorialTags' ng-model = 'tutorial.tags'>
+            <input class = 'u-full-width' type = 'text' id = 'tutorialTags' ng-model = 'tutorial.tags' required>
           </div>
 
           <div class = 'three columns'>
             <label for = 'tutorialRating'>Rating</label>
-            <select class = 'u-full-width' class = 'three columns' id = 'tutorialRating' ng-model = 'tutorial.rating'>
+            <select class = 'u-full-width' class = 'three columns' id = 'tutorialRating' ng-model = 'tutorial.rating' required>
               <option value = '1'>1</option>
               <option value = '2'>2</option>
               <option value = '3'>3</option>
@@ -55,20 +56,20 @@
 
           <div class = 'twelve columns'>
             <label for = 'tutorialReview'>Review</label>
-            <textarea class = 'u-full-width' placeholder = 'review this tutorial' id = 'tutorialReview' ng-model = 'tutorial.review'></textarea>
+            <textarea class = 'u-full-width' placeholder = 'review this tutorial' id = 'tutorialReview' ng-model = 'tutorial.review' required></textarea>
           </div>
 
         </div>
 
         <div class = 'row'>
           <div class = 'offset-by-four four columns'>
-            <button class = 'button-primary u-full-width' ng-click = 'submitTutorial()'>Submit Tutorial</button>
+            <button class = 'button-primary u-full-width' ng-click = 'submitTutorial()' ng-disabled="tutorialForm.$invalid">Submit Tutorial</button>
           </div>
         </div>
 
         <div class = 'row'>
           <div class = 'offset-by-four four columns'>
-            <button class = 'button-primary u-full-width' ng-click = 'submitEditedTutorial(tutorial._id)'>Edit Tutorial</button>
+            <button class = 'button-primary u-full-width' ng-click = 'submitEditedTutorial(tutorial._id)' ng-disabled="tutorialForm.$invalid">Edit Tutorial</button>
           </div>
         </div>
 
@@ -89,7 +90,7 @@
       </thead>
       <tbody>
         <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
-          <td class = 'four columns'>{{tutorial.link}}</td>
+          <td class = 'four columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
           <td class = 'three columns'>{{tutorial.tags[0]}}</td>
           <td class = 'three columns'>{{tutorial.rating}}</td>
           <td class = 'one column center-text'>
@@ -119,12 +120,26 @@
           </div>
 
           <div class = 'three columns'>
-            <label for = 'noteTag'>Tags</label>
+            <label for = 'noteTags'>Tags</label>
             <input class = 'u-full-width' type = 'text' id = 'noteTags' ng-model = 'note.tags'>
           </div>
 
+      <div class = 'row'>
 
-        <div class = 'row'>
+        <div class = 'six columns'>
+          <label for = 'pad'>Note</label>
+          <textarea class = 'u-full-width full-height' id = 'pad' ng-model = 'noteTextInput' placeholder = 'write note here...'></textarea>
+        </div>
+
+        <div class = 'six columns'>
+          <label for = 'markdown'>Output</label>
+          <div class = 'u-full-width full-height' id = 'markdown' ng-bind-html = 'trustOutput()'>
+          </div>
+        </div>
+
+      </div>
+
+       <div class = 'row'>
           <div class = 'offset-by-four four columns'>
             <button class = 'button-primary u-full-width' ng-click = 'submitNote()'>Submit Note</button>
           </div>
@@ -156,7 +171,7 @@
       </thead>
       <tbody>
         <tr ng-repeat = 'note in userNotes'>
-          <td class = 'four columns'>{{note.title}}</td>
+          <td class = 'four columns note-title' ng-click = 'showNote(note.content)'>{{note.title}}</td>
           <td class = 'three columns'>{{note.tags[0]}}</td>
           <td class = 'three columns'>{{note.date | date : 'short'}}</td>
           <td class = 'one column center-text'>
@@ -169,12 +184,16 @@
       </tbody>
     </table>
 
+    <div class = 'u-full-width' ng-model = 'clickedNote' ng-bind-html = 'trustOutput2()'>
+    </div>
+
 
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-  <!--  // <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script> -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
   <script type="text/javascript" src = '../js/user/app.js'></script>
   <script type="text/javascript" src = '../js/user/controllers.js'></script>
   <script type="text/javascript" src = '../js/user/directives.js'></script>

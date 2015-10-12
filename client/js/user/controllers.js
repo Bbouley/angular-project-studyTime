@@ -1,6 +1,10 @@
-app.controller('UserController', function($scope, UserFactory){
+var converter = new showdown.Converter();
+
+app.controller('UserController', function($scope, $sce, UserFactory){
 
   $scope.userid = getUserId();
+
+  $scope.note = {};
 
   $scope.getUserData = function(){
     var url = '/users/' + $scope.userid;
@@ -43,12 +47,14 @@ app.controller('UserController', function($scope, UserFactory){
       title : $scope.note.title,
       date : Date.now(),
       tags : [$scope.note.tags],
+      content: $scope.noteTextInput,
     };
     console.log('submit payload', payload);
     var url = '/users/' + $scope.userid + '/notes';
     UserFactory.post(url, payload)
     .then(function(response){
       $scope.note = {};
+      $scope.noteTextInput = '';
       UserFactory.get(url)
       .then(function(response){
         $scope.userNotes = response.data;
@@ -114,6 +120,24 @@ app.controller('UserController', function($scope, UserFactory){
         $scope.userNotes = response.data;
       });
     });
+  };
+
+
+  $scope.$watch('noteTextInput', function(newVal, oldVal, scope){
+      html = converter.makeHtml(newVal);
+      $scope.textOutput = html;
+      $scope.trustOutput = function(){
+        return $sce.trustAsHtml($scope.textOutput);
+      };
+  });
+
+  $scope.showNote = function(content){
+    console.log(content);
+    html = converter.makeHtml(content);
+    $scope.clickedNote = html;
+      $scope.trustOutput2 = function(){
+        return $sce.trustAsHtml($scope.clickedNote);
+      };
   };
 
 });

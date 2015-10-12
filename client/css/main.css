@@ -48,3 +48,16 @@ a {
   cursor: pointer;
 }
 
+.full-height{
+  border: black 1px solid;
+  height: 100vh;
+  max-width: 32vw;
+  max-height: 100vh;
+  overflow: scroll;
+}
+
+.note-title:hover{
+  color: blue;
+  cursor: pointer;
+}
+

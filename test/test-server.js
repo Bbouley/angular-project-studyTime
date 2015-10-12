@@ -52,7 +52,8 @@ describe('Add Users', function(){
       var newNote = new Note({
         title : 'test note',
         date : Date.now(),
-        tags: ['test 1', 'test 1']
+        tags: ['test 1', 'test 1'],
+        content : 'test',
       });
 
       newNote.save();

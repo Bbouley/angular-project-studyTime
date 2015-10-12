@@ -5,6 +5,7 @@ var Note = new Schema({
   title : String,
   date : Date,
   tags : [String],
+  content: String
 });
 
 module.exports = mongoose.model('notes', Note);
