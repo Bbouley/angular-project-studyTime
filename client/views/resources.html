@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app = 'resourcesApp'>
 <head>
   <meta charset="UTF-8">
   <title>Study Stuff Resources</title>
@@ -7,8 +7,35 @@
   <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
-<body>
-<h1>testing resources route</h1>
+<body ng-controller = 'ResourcesController'>
+
+  <div class = 'title-container border'>
+  <div class = 'row center-text'>
+      <h1 class = 'center-text font-100'>Resources</h1>
+    </div>
+  </div>
+
+  <div class = 'container'>
+
+    <div class = 'twelve columns'>
+    </div>
+
+    <table class = 'u-full-width underline'>
+      <thead>
+        <tr class = 'border-underneath'>
+          <th class = 'six columns'>Link</th>
+          <th class = 'four columns'>Tags</th>
+          <th class = 'two columns'>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
+          <td class = 'six columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
+          <td class = 'four columns'>{{tutorial.tags[0]}}</td>
+          <td class = 'two columns'>{{tutorial.rating}}/5</td>
+        </tr>
+      </tbody>
+    </table>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
