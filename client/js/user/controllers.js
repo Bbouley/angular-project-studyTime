@@ -161,6 +161,7 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
     $scope.tutorialEdit = true;
     $scope.tutorialSubmit = false;
     $scope.showTutorialForm = true;
+    $scope.showTutorials = false;
     UserFactory.get('/usertutorials/tutorial/' + id)
     .then(function(response){
       $scope.tutorial = response.data;
@@ -194,6 +195,7 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
     $scope.noteEdit = true;
     $scope.noteSubmit = false;
     $scope.showNoteForm = true;
+    $scope.showNotes = false;
     UserFactory.get('/usernotes/note/' + id)
     .then(function(response){
       $scope.note = response.data;

@@ -1,6 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #FDFDFD;
+  background-color: #FEFEFE;
 }
 
 a {
@@ -87,9 +87,10 @@ a {
 }
 
 .success{
-  background-color: rgba(91, 255, 41, 0.5);
+  background-color: rgba(51, 195, 240, 0.3);
   margin-bottom: 20px;
-  padding-top: 15px;
+  padding-top: 20px;
+  color: white;
 }
 
 .ng-hide{
