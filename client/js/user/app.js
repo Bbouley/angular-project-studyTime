@@ -1,4 +1,4 @@
-var app = angular.module('userApp', ['ngRoute', 'ngSanitize']);
+var app = angular.module('userApp', ['ngAnimate', 'ngRoute', 'ngSanitize']);
 
 
 

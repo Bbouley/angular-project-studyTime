@@ -21,7 +21,7 @@ router.get('/', function(req, res, next){
 
 //get single user information
 router.get('/:id', function(req, res, next){
-  User.findById(req.params.id)
+  User.findByIdQ(req.params.id)
   .then(function(result){
     res.json(result);
   })
@@ -70,7 +70,6 @@ router.get('/:userid/all', function(req, res, next){
     if(err){
       res.send(err);
     } else {
-      console.log('server side', user);
       res.json(user);
     }
   });

@@ -9,6 +9,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
   $scope.message = '';
   $scope.success = false;
 
+  $scope.showTutorialsButton = true;
+  $scope.showAddTutorialButton = true;
+  $scope.showNotesButton = true;
+  $scope.showAddNoteButton = true;
+
   function successMessage(){
     $scope.success = false;
   }
@@ -22,16 +27,28 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
   $scope.showTutorialsFunction = function(){
     if($scope.showTutorials === false){
       $scope.showTutorials = true;
+      $scope.showAddTutorialButton = false;
+      $scope.showNotesButton = false;
+      $scope.showAddNoteButton = false;
     } else {
       $scope.showTutorials = false;
+      $scope.showAddTutorialButton = true;
+      $scope.showNotesButton = true;
+      $scope.showAddNoteButton = true;
     }
   };
 
   $scope.showTutorialFormFunction = function(){
     if($scope.showTutorialForm === false){
       $scope.showTutorialForm = true;
+      $scope.showTutorialsButton = false;
+      $scope.showNotesButton = false;
+      $scope.showAddNoteButton = false;
     } else {
       $scope.showTutorialForm = false;
+      $scope.showTutorialsButton = true;
+      $scope.showNotesButton = true;
+      $scope.showAddNoteButton = true;
     }
   };
 
@@ -44,16 +61,28 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
   $scope.showNotesFunction = function(){
     if($scope.showNotes === false){
       $scope.showNotes = true;
+      $scope.showTutorialsButton = false;
+      $scope.showAddTutorialButton = false;
+      $scope.showAddNoteButton = false;
     } else {
       $scope.showNotes = false;
+      $scope.showTutorialsButton = true;
+      $scope.showAddTutorialButton = true;
+      $scope.showAddNoteButton = true;
     }
   };
 
   $scope.showNoteFormFunction = function(){
     if($scope.showNoteForm === false){
       $scope.showNoteForm = true;
+      $scope.showTutorialsButton = false;
+      $scope.showAddTutorialButton = false;
+      $scope.showNotesButton = false;
     } else {
       $scope.showNoteForm = false;
+      $scope.showTutorialsButton = true;
+      $scope.showAddTutorialButton = true;
+      $scope.showNotesButton = true;
     }
   };
 
@@ -92,7 +121,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.showTutorialForm = false;
         $scope.success = true;
         $scope.message = 'Tutorial Saved';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        $scope.showTutorialsButton = true;
+        $scope.showAddTutorialButton = true;
+        $scope.showNotesButton = true;
+        $scope.showAddNoteButton = true;
       });
     });
   };
@@ -104,7 +137,6 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
       tags : [$scope.note.tags],
       content: $scope.noteTextInput,
     };
-    console.log('submit payload', payload);
     var url = '/users/' + $scope.userid + '/notes';
     UserFactory.post(url, payload)
     .then(function(response){
@@ -116,7 +148,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.showNoteForm = false;
         $scope.success = true;
         $scope.message = 'Note Saved';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        $scope.showTutorialsButton = true;
+        $scope.showAddTutorialButton = true;
+        $scope.showNotesButton = true;
+        $scope.showAddNoteButton = true;
       });
     });
   };
@@ -145,7 +181,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.tutorialSubmit = true;
         $scope.success = true;
         $scope.message = 'Tutorial Edited';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        $scope.showTutorialsButton = true;
+        $scope.showAddTutorialButton = true;
+        $scope.showNotesButton = true;
+        $scope.showAddNoteButton = true;
       });
     });
   };
@@ -180,7 +220,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.showNoteForm = false;
         $scope.success = true;
         $scope.message = 'Note Edited';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        $scope.showTutorialsButton = true;
+        $scope.showAddTutorialButton = true;
+        $scope.showNotesButton = true;
+        $scope.showAddNoteButton = true;
       });
     });
   };
@@ -193,7 +237,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.userTutorials = response.data;
         $scope.success = true;
         $scope.message = 'Tutorial Deleted';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        // $scope.showTutorialsButton = true;
+        // $scope.showAddTutorialButton = true;
+        // $scope.showNotesButton = true;
+        // $scope.showAddNoteButton = true;
       });
     });
   };
@@ -206,7 +254,11 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
         $scope.userNotes = response.data;
         $scope.success = true;
         $scope.message = 'Note Deleted';
-        $timeout(successMessage, 6000);
+        $timeout(successMessage, 3000);
+        // $scope.showTutorialsButton = true;
+        // $scope.showAddTutorialButton = true;
+        // $scope.showNotesButton = true;
+        // $scope.showAddNoteButton = true;
       });
     });
   };
@@ -221,12 +273,15 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
   });
 
   $scope.showNote = function(content){
-    console.log(content);
     html = converter.makeHtml(content);
-    $scope.clickedNote = html;
+    if($scope.clickedNote === html){
+      $scope.clickedNote = '';
+    } else {
+      $scope.clickedNote = html;
       $scope.trustOutput2 = function(){
         return $sce.trustAsHtml($scope.clickedNote);
       };
+    }
   };
 
 });

@@ -49,10 +49,8 @@ a {
 }
 
 .full-height{
-  border: black 1px solid;
-  height: 100vh;
-  max-width: 32vw;
-  max-height: 100vh;
+  word-wrap: break-word;
+  height: 70vh;
   overflow: scroll;
 }
 
@@ -66,3 +64,40 @@ a {
   margin-bottom: 20px;
   padding-top: 15px;
 }
+
+.ng-hide{
+  transition : 0.3s linear all;
+  opacity: 0;
+}
+
+.markdown-title{
+  margin-left: 20px;
+}
+
+.ng-hide-remove {
+  transition: all linear 500ms;
+}
+
+.ng-hide-add {
+  transition: all linear 500ms;
+}
+
+.user-button.ng-hide{
+  visibility: hidden;
+  display: block !important;
+}
+
+.success.ng-hide{
+  visibility: hidden;
+  display: block !important;
+}
+
+.front-image{
+  background-image: linear-gradient(to bottom, hsla(194, 86%, 57%, 0.6), hsla(194, 86%, 57%, 0.7)), url('../images/Eploding-Brain.jpg');
+  height: 40vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+}
+

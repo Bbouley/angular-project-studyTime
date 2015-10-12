@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <title>Study Stuff User</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Rhodium+Libre' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
   <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
-<body ng-controller = 'UserController'>
+<body ng-controller = 'UserController' ng-cloak>
 
 
 
@@ -19,19 +20,24 @@
     </div>
   </div>
 
-  <div class = 'twelve columns success center-text' ng-show = 'success'>
-    <h3>{{message}}</h3>
-  </div>
-
   <div class = 'container'>
 
     <div class = 'row'>
-      <button class = 'offset-by-two four columns button-primary' ng-click = 'showTutorialFormFunction()'>Add Tutorial</button>
+      <button class = 'three columns button-primary user-button' ng-click = 'showTutorialFormFunction()' ng-show = 'showAddTutorialButton'>Add Tutorial</button>
 
-      <button class = 'four columns button-primary' ng-click = 'showTutorialsFunction()'>Show Tutorials</button>
+      <button class = 'three columns button-primary user-button' ng-click = 'showTutorialsFunction()' ng-show = 'showTutorialsButton'>Show Tutorials</button>
+
+      <button class = 'three columns button-primary user-button' ng-click = 'showNoteFormFunction()' ng-show = 'showAddNoteButton'>Add Note</button>
+
+      <button class = 'three columns button-primary user-button' ng-click = 'showNotesFunction()' ng-show = 'showNotesButton'>Show Notes</button>
+
     </div>
 
-    <div class = 'row' ng-show = 'showTutorialForm'>
+     <div class = 'twelve columns success center-text' ng-show = 'success'>
+      <h3>{{message}}</h3>
+    </div>
+
+    <div class = 'row tutorial-form' ng-show = 'showTutorialForm'>
 
       <form name = 'tutorialForm'>
 
@@ -85,23 +91,23 @@
 
     </div>
 
-    <div ng-show = 'showTutorials'>
-    <h3 class = 'underline center-text'>Tutorials</h3>
+    <div ng-show = 'showTutorials' class = 'tutorials-list'>
+    <!-- <h3 class = 'underline center-text'>Tutorials</h3> -->
     <table class = 'u-full-width underline'>
       <thead>
         <tr class = 'border-underneath'>
-          <th class = 'four columns'>Link</th>
+          <th class = 'five columns'>Link</th>
           <th class = 'three columns'>Tags</th>
-          <th class = 'three columns'>Rating</th>
+          <th class = 'two columns'>Rating</th>
           <th class = 'one column left-text'>Edit</th>
           <th class = 'left-text one column'>Del</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
-          <td class = 'four columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
+          <td class = 'five columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
           <td class = 'three columns'>{{tutorial.tags[0]}}</td>
-          <td class = 'three columns'>{{tutorial.rating}}</td>
+          <td class = 'two columns'>{{tutorial.rating}}</td>
           <td class = 'one column center-text'>
                 <span class="fa fa-pencil"  ng-click = 'showEditUserTutorial(tutorial._id)'></span>
            </td>
@@ -111,13 +117,6 @@
         </tr>
       </tbody>
     </table>
-    </div>
-
-
-     <div class = 'row'>
-      <button class = 'offset-by-two four columns button-primary' ng-click = 'showNoteFormFunction()'>Add Note</button>
-
-      <button class = 'four columns button-primary' ng-click = 'showNotesFunction()'>Show Notes</button>
     </div>
 
 
@@ -138,13 +137,13 @@
       <div class = 'row'>
 
         <div class = 'six columns'>
-          <label for = 'pad'>Note</label>
+          <label for = 'pad' class = 'underline'>Notes</label>
           <textarea class = 'u-full-width full-height' id = 'pad' ng-model = 'noteTextInput' placeholder = 'write note here...'></textarea>
         </div>
 
         <div class = 'six columns'>
-          <label for = 'markdown'>Output</label>
-          <div class = 'u-full-width full-height' id = 'markdown' ng-bind-html = 'trustOutput()'>
+          <label for = 'markdown' class = 'underline'>Markdown Output</label>
+          <div class = 'u-full-width full-height border' id = 'markdown' ng-bind-html = 'trustOutput()'>
           </div>
         </div>
 
@@ -170,7 +169,7 @@
 
 
   <div ng-show = 'showNotes'>
-    <h3 class = 'underline center-text'>Notes</h3>
+    <!-- <h3 class = 'underline center-text'>Notes</h3> -->
     <table class = 'u-full-width'>
       <thead>
         <tr>
@@ -207,6 +206,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+  <script type="text/javascript" src = 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-animate.min.js'></script>
   <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
   <script type="text/javascript" src = '../js/user/app.js'></script>
   <script type="text/javascript" src = '../js/user/controllers.js'></script>
