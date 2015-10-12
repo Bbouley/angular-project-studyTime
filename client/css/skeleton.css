@@ -239,7 +239,7 @@ select {
   height: 38px;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   background-color: #fff;
-  border: 1px solid #D1D1D1;
+  border: solid #33C3F0 1px;
   border-radius: 1px;
   box-shadow: none;
   box-sizing: border-box; }
@@ -268,7 +268,7 @@ input[type="url"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #33C3F0;
+  border: solid #33C3F0 1px;
   outline: 0; }
 label,
 legend {
@@ -329,7 +329,7 @@ td {
   padding: 12px 15px;
   text-align: left;
 }
- tr{ border-bottom: 1px solid #E1E1E1; }
+ tr{ border-bottom: solid #33C3F0 1px; }
 th:first-child,
 td:first-child {
   padding-left: 0; }

@@ -22,6 +22,8 @@
 
     </div>
 
+    <div class = 'row content'>
+
     <table class = 'u-full-width underline'>
       <thead>
         <tr class = 'border-underneath'>
@@ -32,12 +34,15 @@
       </thead>
       <tbody>
         <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
-          <td class = 'six columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
+          <td class = 'six columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</a></td>
           <td class = 'four columns'>{{tutorial.tags[0]}}</td>
           <td class = 'two columns'>{{tutorial.rating}}/5</td>
         </tr>
       </tbody>
     </table>
+    </div>
+
+    <div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
