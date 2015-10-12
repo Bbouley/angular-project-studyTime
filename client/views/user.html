@@ -15,8 +15,13 @@
 
   <div class = 'title-containerUser border'>
     <div class = 'row center-text'>
+      <div class = 'offset-by-four four columns'>
       <h1 class = 'center-text font-100'>Welcome</h1>
        <h4>{{user.name}}</h4>
+       </div>
+      <div class = 'four columns user-image'>
+        <img src = '{{githubInfo.avatar_url}}' height = '200'>
+      </div>
     </div>
   </div>
 
@@ -203,8 +208,11 @@
 
   </div>
 
+  <div class = 'center-text'>
+  <h3><a href = '{{githubInfo.html_url}}' target = '_blank'><span class="fa fa-github-alt"></span></a></h3>
+   </div>
+
    <div class = 'jumbothingUser'>
-      <h3>Here is the sea</h3>
     </div>
 
 
