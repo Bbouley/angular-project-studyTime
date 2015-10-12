@@ -10,6 +10,8 @@
 </head>
 <body ng-controller = 'UserController'>
 
+
+
   <div class = 'title-container border'>
     <div class = 'row center-text'>
       <h1 class = 'center-text font-100'>Welcome</h1>
@@ -17,13 +19,19 @@
     </div>
   </div>
 
+  <div class = 'twelve columns success center-text' ng-show = 'success'>
+    <h3>{{message}}</h3>
+  </div>
+
   <div class = 'container'>
 
     <div class = 'row'>
-      <button class = 'offset-by-four four columns button-primary'>Add Tutorial</button>
+      <button class = 'offset-by-two four columns button-primary' ng-click = 'showTutorialFormFunction()'>Add Tutorial</button>
+
+      <button class = 'four columns button-primary' ng-click = 'showTutorialsFunction()'>Show Tutorials</button>
     </div>
 
-    <div class = 'row'>
+    <div class = 'row' ng-show = 'showTutorialForm'>
 
       <form name = 'tutorialForm'>
 
@@ -61,13 +69,13 @@
 
         </div>
 
-        <div class = 'row'>
+        <div class = 'row' ng-show = 'tutorialSubmit'>
           <div class = 'offset-by-four four columns'>
             <button class = 'button-primary u-full-width' ng-click = 'submitTutorial()' ng-disabled="tutorialForm.$invalid">Submit Tutorial</button>
           </div>
         </div>
 
-        <div class = 'row'>
+        <div class = 'row' ng-show = 'tutorialEdit'>
           <div class = 'offset-by-four four columns'>
             <button class = 'button-primary u-full-width' ng-click = 'submitEditedTutorial(tutorial._id)' ng-disabled="tutorialForm.$invalid">Edit Tutorial</button>
           </div>
@@ -77,7 +85,8 @@
 
     </div>
 
-  <h3 class = 'underline center-text'>Tutorials</h3>
+    <div ng-show = 'showTutorials'>
+    <h3 class = 'underline center-text'>Tutorials</h3>
     <table class = 'u-full-width underline'>
       <thead>
         <tr class = 'border-underneath'>
@@ -102,17 +111,19 @@
         </tr>
       </tbody>
     </table>
-
-
-     <div class = 'row'>
-      <button class = 'offset-by-four four columns button-primary'>Add Note</button>
     </div>
 
 
      <div class = 'row'>
-      <form>
+      <button class = 'offset-by-two four columns button-primary' ng-click = 'showNoteFormFunction()'>Add Note</button>
 
-        <div class = 'row'>
+      <button class = 'four columns button-primary' ng-click = 'showNotesFunction()'>Show Notes</button>
+    </div>
+
+
+     <div class = 'row' ng-show = 'showNoteForm'>
+
+      <form>
 
           <div class = 'nine columns'>
             <label for = 'noteTitle'>Title</label>
@@ -139,14 +150,14 @@
 
       </div>
 
-       <div class = 'row'>
+       <div class = 'row' ng-show = 'noteSubmit'>
           <div class = 'offset-by-four four columns'>
             <button class = 'button-primary u-full-width' ng-click = 'submitNote()'>Submit Note</button>
           </div>
         </div>
 
 
-        <div class = 'row'>
+        <div class = 'row' ng-show = 'noteEdit'>
           <div class = 'offset-by-four four columns'>
             <button class = 'button-primary u-full-width' ng-click = 'submitEditedNote(note._id)'>Edit Note</button>
           </div>
@@ -158,7 +169,8 @@
 
 
 
-  <h3 class = 'underline center-text'>Notes</h3>
+  <div ng-show = 'showNotes'>
+    <h3 class = 'underline center-text'>Notes</h3>
     <table class = 'u-full-width'>
       <thead>
         <tr>
@@ -185,6 +197,8 @@
     </table>
 
     <div class = 'u-full-width' ng-model = 'clickedNote' ng-bind-html = 'trustOutput2()'>
+    </div>
+
     </div>
 
 

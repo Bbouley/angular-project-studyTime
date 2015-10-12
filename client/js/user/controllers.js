@@ -1,10 +1,61 @@
 var converter = new showdown.Converter();
 
-app.controller('UserController', function($scope, $sce, UserFactory){
+app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
 
   $scope.userid = getUserId();
 
   $scope.note = {};
+
+  $scope.message = '';
+  $scope.success = false;
+
+  function successMessage(){
+    $scope.success = false;
+  }
+
+  $scope.showTutorialForm = false;
+  $scope.tutorialSubmit = true;
+  $scope.tutorialEdit = false;
+
+  $scope.showTutorials = false;
+
+  $scope.showTutorialsFunction = function(){
+    if($scope.showTutorials === false){
+      $scope.showTutorials = true;
+    } else {
+      $scope.showTutorials = false;
+    }
+  };
+
+  $scope.showTutorialFormFunction = function(){
+    if($scope.showTutorialForm === false){
+      $scope.showTutorialForm = true;
+    } else {
+      $scope.showTutorialForm = false;
+    }
+  };
+
+  $scope.showNoteForm = false;
+  $scope.noteSubmit = true;
+  $scope.noteEdit = false;
+
+  $scope.showNotes = false;
+
+  $scope.showNotesFunction = function(){
+    if($scope.showNotes === false){
+      $scope.showNotes = true;
+    } else {
+      $scope.showNotes = false;
+    }
+  };
+
+  $scope.showNoteFormFunction = function(){
+    if($scope.showNoteForm === false){
+      $scope.showNoteForm = true;
+    } else {
+      $scope.showNoteForm = false;
+    }
+  };
 
   $scope.getUserData = function(){
     var url = '/users/' + $scope.userid;
@@ -38,6 +89,10 @@ app.controller('UserController', function($scope, $sce, UserFactory){
       UserFactory.get(url)
       .then(function(response){
         $scope.userTutorials = response.data;
+        $scope.showTutorialForm = false;
+        $scope.success = true;
+        $scope.message = 'Tutorial Saved';
+        $timeout(successMessage, 6000);
       });
     });
   };
@@ -58,11 +113,18 @@ app.controller('UserController', function($scope, $sce, UserFactory){
       UserFactory.get(url)
       .then(function(response){
         $scope.userNotes = response.data;
+        $scope.showNoteForm = false;
+        $scope.success = true;
+        $scope.message = 'Note Saved';
+        $timeout(successMessage, 6000);
       });
     });
   };
 
   $scope.showEditUserTutorial = function(id){
+    $scope.tutorialEdit = true;
+    $scope.tutorialSubmit = false;
+    $scope.showTutorialForm = true;
     UserFactory.get('/usertutorials/tutorial/' + id)
     .then(function(response){
       $scope.tutorial = response.data;
@@ -78,26 +140,47 @@ app.controller('UserController', function($scope, $sce, UserFactory){
       UserFactory.get('/users/' + $scope.userid + '/tutorials')
       .then(function(response){
         $scope.userTutorials = response.data;
+        $scope.tutorialEdit = false;
+        $scope.showTutorialForm = false;
+        $scope.tutorialSubmit = true;
+        $scope.success = true;
+        $scope.message = 'Tutorial Edited';
+        $timeout(successMessage, 6000);
       });
     });
   };
 
   $scope.showEditUserNote = function(id){
+    $scope.noteEdit = true;
+    $scope.noteSubmit = false;
+    $scope.showNoteForm = true;
     UserFactory.get('/usernotes/note/' + id)
     .then(function(response){
       $scope.note = response.data;
+      $scope.noteTextInput = response.data.content;
     });
   };
 
   $scope.submitEditedNote = function(id){
     var url = '/usernotes/note/' + id;
-    var payload = $scope.note;
+    var payload = {
+      title : $scope.note.title,
+      tags : $scope.note.tags,
+      content : $scope.noteTextInput,
+    };
     UserFactory.put(url, payload)
     .then(function(response){
       $scope.note = {};
+      $scope.noteTextInput = '';
       UserFactory.get('/users/' + $scope.userid + '/notes')
       .then(function(response){
         $scope.userNotes = response.data;
+        $scope.noteEdit = false;
+        $scope.noteSubmit = true;
+        $scope.showNoteForm = false;
+        $scope.success = true;
+        $scope.message = 'Note Edited';
+        $timeout(successMessage, 6000);
       });
     });
   };
@@ -108,6 +191,9 @@ app.controller('UserController', function($scope, $sce, UserFactory){
       UserFactory.get('/users/' + $scope.userid + '/tutorials')
       .then(function(response){
         $scope.userTutorials = response.data;
+        $scope.success = true;
+        $scope.message = 'Tutorial Deleted';
+        $timeout(successMessage, 6000);
       });
     });
   };
@@ -118,6 +204,9 @@ app.controller('UserController', function($scope, $sce, UserFactory){
       UserFactory.get('/users/' + $scope.userid + '/notes')
       .then(function(response){
         $scope.userNotes = response.data;
+        $scope.success = true;
+        $scope.message = 'Note Deleted';
+        $timeout(successMessage, 6000);
       });
     });
   };
