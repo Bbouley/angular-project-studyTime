@@ -32,6 +32,7 @@ router.get('/:id', function(req, res, next){
 
 });
 
+
 //get all tutorials from a single user
 router.get('/:userid/tutorials', function(req, res, next){
  User.findById(req.params.userid)

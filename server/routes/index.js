@@ -37,7 +37,6 @@ function ensureAuthenticated(req, res, next){
 
 router.get('/user/:id', ensureAuthenticated, function(req, res, next) {
   var user = req.user;
-  // console.log(user);
   res.sendFile(path.join(__dirname, '../../client/views', 'user.html'));
 });
 

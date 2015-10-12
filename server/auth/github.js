@@ -19,7 +19,7 @@ passport.use(new GitHubStrategy({
 
     var updates = {
       name : parsedProfile.username,
-      oauthID : parsedProfile.id,
+      oauthID : accessToken,
     };
 
     var options = {
