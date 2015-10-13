@@ -23,7 +23,8 @@ var userRoutes = require('./routes/users.js');
 var app = express();
 
 // *** mongoose *** //
-mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+var mongoURI = process.env.MONGOLAB_URI || config.mongoURI[app.settings.env];
+mongoose.connect(mongoURI, function(err, res) {
   if(err) {
     console.log('Error connecting to the database. ' + err);
   } else {
