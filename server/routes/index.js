@@ -15,15 +15,16 @@ router.get('/', function(req, res, next) {
 router.get('/resources', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../../client/views', 'resources.html'));
 });
+
 ///authentication
 
 router.get('/auth/github',
   github.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/auth/github/callback',
-  // github.authenticate('github', { failureRedirect: '/' }),
+  github.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
-    console.log(req);
+    console.log(req.user);
     console.log('testing');
     res.redirect('/user/'+req.user._id);
   });
