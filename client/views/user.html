@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Study Stuff User</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Rhodium+Libre' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
   <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../css/main.css">
@@ -16,19 +16,12 @@
   <div class = 'title-containerUser border'>
     <div class = 'row center-text'>
       <div class = 'offset-by-four four columns'>
-      <h1 class = 'center-text font-100'>Welcome</h1>
-       <h4>{{user.name}}</h4>
+      <h1 class = 'center-text'>Welcome {{user.name}}</h1>
+   <!--     <h4>{{user.name}}</h4> -->
        <h4>How is {{githubInfo.location}} today?</h4>
        </div>
       <div class = 'four columns user-image'>
-        <img src = '{{githubInfo.avatar_url}}' height = '230'>
-      </div>
-       <div class = 'offset-by-nine two columns center-text logout'>
-       <a href = '/'>
-        <button class = 'u-full-width button-primary'>
-        Logout
-        </button>
-        </a>
+        <img src = '{{githubInfo.avatar_url}}' height = '170'>
       </div>
     </div>
   </div>
@@ -215,6 +208,16 @@
     </div>
 
   </div>
+
+      <div class = 'row'>
+       <div class = 'offset-by-five two columns center-text logout'>
+       <a href = '/'>
+        <button class = 'u-full-width button-primary'>
+        Logout
+        </button>
+        </a>
+      </div>
+    </div>
 
   <div class = 'center-text'>
   <h3><a href = '{{githubInfo.html_url}}' target = '_blank'><span class="fa fa-github-alt"></span></a></h3>

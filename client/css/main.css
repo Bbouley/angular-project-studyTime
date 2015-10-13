@@ -1,5 +1,5 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+ font-family: 'Poppins', sans-serif;
   background-color: #FEFEFE;
 
 }
@@ -20,7 +20,10 @@ a {
   position: relative;
   border-bottom: solid #33C3F0 1px;
   background-color: #EBEBEB;
-  background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&fm=jpg&s=a4598570a3286ea23369fdefe46953ba");
+  background-image: url("https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&fm=jpg&s=88871674ce3ce449062b3a16c0be6c66");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 .title-containerUser{
@@ -28,8 +31,11 @@ a {
   height: 100%;
   position: relative;
   border-bottom: solid #33C3F0 1px;
-  background-color: #EBEBEB;
-/*  background-image: url("https://images.unsplash.com/photo-1438503733096-e5c5560f05ed?q=80&fm=jpg&s=f85e9819db1b47c8cda8f160a2b54fad");*/
+  /*background-color: #EBEBEB;*/
+  background-image: url("https://images.unsplash.com/photo-1416339684178-3a239570f315?q=80&fm=jpg&s=b53f387f2a3723625be71052812a97de");
+  background-size: cover;
+  /*background-position: center;*/
+  color: #33C3F0;
 }
 
 
@@ -54,9 +60,10 @@ a {
   margin-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&fm=jpg&s=a4598570a3286ea23369fdefe46953ba");
-  background-size: cover;
+  background-image: url("https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&fm=jpg&s=88871674ce3ce449062b3a16c0be6c66");
+  /*background-size: cover;*/
   background-repeat: no-repeat;
+  background-position: top;
 }
 
 .jumbothingUser{
@@ -66,7 +73,7 @@ a {
   margin-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  background-image: url("https://images.unsplash.com/photo-1438503733096-e5c5560f05ed?q=80&fm=jpg&s=f85e9819db1b47c8cda8f160a2b54fad");
+  background-image: url("https://images.unsplash.com/photo-1416339684178-3a239570f315?q=80&fm=jpg&s=b53f387f2a3723625be71052812a97de");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
