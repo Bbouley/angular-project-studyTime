@@ -20,6 +20,7 @@ var userRoutes = require('./routes/users.js');
 
 
 // *** express instance *** //
+console.log(process.env);
 var app = express();
 
 // *** mongoose *** //
