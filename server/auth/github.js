@@ -6,7 +6,7 @@ var User = require('../models/user');
 passport.use(new GitHubStrategy({
     clientID: process.env.githubClientID,
     clientSecret: process.env.githubClientSecret,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: "http://studyupcoding.herokuapp.com/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
 
