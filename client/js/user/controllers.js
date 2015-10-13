@@ -1,6 +1,6 @@
 var converter = new showdown.Converter();
 
-app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
+app.controller('UserController', function($scope, $sce, UserFactory, $timeout, $filter){
 
   $scope.userid = getUserId();
 
@@ -283,6 +283,20 @@ app.controller('UserController', function($scope, $sce, UserFactory, $timeout){
       };
     }
   };
+
+  $scope.predicate = 'rating';
+  $scope.reverse = true;
+  $scope.orderTutorials = function(predicate){
+     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+      $scope.predicate = predicate;
+  };
+
+  $scope.notesPredicate = 'date';
+  $scope.orderNotes = function(predicate){
+     $scope.reverse = ($scope.notesPredicate === predicate) ? !$scope.reverse : false;
+      $scope.notesPredicate = predicate;
+  };
+
 
 });
 

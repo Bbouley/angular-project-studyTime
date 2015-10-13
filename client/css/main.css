@@ -1,12 +1,16 @@
 body {
  font-family: 'Poppins', sans-serif;
-  background-color: #FEFEFE;
+  background-color: #F7F7F7;
 
 }
 
 a {
   color: black;
   text-decoration: none;
+}
+
+img{
+  border: solid #33C3F0 1px
 }
 
 
@@ -16,7 +20,7 @@ a {
 
 .title-container{
   width: 100vw;
-  height: 100%;
+  height: 75vh;
   position: relative;
   border-bottom: solid #33C3F0 1px;
   background-color: #EBEBEB;
@@ -24,6 +28,11 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
+   color: #33C3F0;
+  text-shadow: -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black;
 }
 
 .title-containerUser{
@@ -31,15 +40,18 @@ a {
   height: 100%;
   position: relative;
   border-bottom: solid #33C3F0 1px;
-  /*background-color: #EBEBEB;*/
   background-image: url("https://images.unsplash.com/photo-1416339684178-3a239570f315?q=80&fm=jpg&s=b53f387f2a3723625be71052812a97de");
   background-size: cover;
-  /*background-position: center;*/
   color: #33C3F0;
+  text-shadow: -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
 }
 
 
 .title-containerResources{
+  padding-top: 20px;
   width: 100vw;
   height: 100%;
   position: relative;
@@ -47,7 +59,13 @@ a {
   background-color: #EBEBEB;
   background-image: url("https://images.unsplash.com/3/doctype-hi-res.jpg?q=80&fm=jpg&s=88871674ce3ce449062b3a16c0be6c66");
   background-position: center;
+  color: #33C3F0;
+  text-shadow: -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
 }
+
 .front{
   padding-top: 30px;
 }
@@ -107,8 +125,9 @@ a {
   text-align: center;
 }
 
-.font-100{
-  font-size: 100px;
+.font-200{
+  padding-top:150px;
+  font-size: 200px;
 }
 
 .underline{
@@ -197,10 +216,22 @@ a {
   padding-top: 10px;
 }
 
-img{
-  border: solid #33C3F0 1px
+.home-text{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
+.plain-background{
+  background-color: #F7F7F7;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+}
+
+.click:hover{
+  cursor: pointer;
+  color: #33C3F0;
+}
 /*.logout{
   padding-top: 20px;
 }*/

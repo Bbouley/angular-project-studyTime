@@ -8,5 +8,11 @@ app.controller('ResourcesController', function($scope, ResourceFactory){
   };
 
   $scope.getTutorials();
+  $scope.predicate = 'rating';
+  $scope.reverse = true;
+  $scope.orderTutorials = function(predicate){
+     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+      $scope.predicate = predicate;
+  };
 
 });

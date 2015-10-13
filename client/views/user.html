@@ -2,7 +2,7 @@
 <html ng-app = 'userApp'>
 <head>
   <meta charset="UTF-8">
-  <title>Study Stuff User</title>
+  <title>Study Up User</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
@@ -13,9 +13,9 @@
 
 
 
-  <div class = 'title-containerUser border'>
+  <div class = 'title-containerUser'>
     <div class = 'row center-text'>
-      <div class = 'offset-by-four four columns'>
+      <div class = 'offset-by-four four columns plain-background'>
       <h1 class = 'center-text'>Welcome {{user.name}}</h1>
    <!--     <h4>{{user.name}}</h4> -->
        <h4>How is {{githubInfo.location}} today?</h4>
@@ -94,19 +94,18 @@
     </div>
 
     <div ng-show = 'showTutorials' class = 'tutorials-list content'>
-    <!-- <h3 class = 'underline center-text'>Tutorials</h3> -->
     <table class = 'u-full-width underline'>
       <thead>
         <tr class = 'border-underneath'>
-          <th class = 'five columns'>Link</th>
-          <th class = 'three columns'>Tags</th>
-          <th class = 'two columns'>Rating</th>
+          <th class = 'five columns click' ng-click = 'orderTutorials("link")'>Link</th>
+          <th class = 'three columns click' ng-click = 'orderTutorials("tags")'>Tags</th>
+          <th class = 'two columns click' ng-click = 'orderTutorials("rating")'>Rating</th>
           <th class = 'one column left-text'>Edit</th>
           <th class = 'left-text one column'>Del</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
+        <tr ng-repeat = 'tutorial in userTutorials | orderBy:predicate:reverse' class = 'border-underneath'>
           <td class = 'five columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</td>
           <td class = 'three columns'>{{tutorial.tags[0]}}</td>
           <td class = 'two columns'>{{tutorial.rating}}</td>
@@ -175,15 +174,15 @@
     <table class = 'u-full-width'>
       <thead>
         <tr>
-          <th class = 'four columns'>Title</th>
-          <th class = 'three columns'>Tags</th>
-          <th class = 'three columns'>Date</th>
+          <th class = 'four columns click' ng-click = 'orderNotes("title")'>Title</th>
+          <th class = 'three columns click' ng-click = 'orderNotes("tags")'>Tags</th>
+          <th class = 'three columns click' ng-click = 'orderNotes("date")'>Date</th>
           <th class = 'one column'>Edit</th>
           <th class = 'one column'>Del</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat = 'note in userNotes'>
+        <tr ng-repeat = 'note in userNotes |orderBy:notesPredicate:reverse'>
           <td class = 'four columns note-title' ng-click = 'showNote(note.content)'>{{note.title}}</td>
           <td class = 'three columns'>{{note.tags[0]}}</td>
           <td class = 'three columns'>{{note.date | date : 'short'}}</td>

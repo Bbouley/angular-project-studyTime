@@ -23,13 +23,13 @@
     <table class = 'u-full-width underline'>
       <thead>
         <tr class = 'border-underneath'>
-          <th class = 'six columns'>Link</th>
-          <th class = 'four columns'>Tags</th>
-          <th class = 'two columns'>Rating</th>
+          <th class = 'six columns click' ng-click = 'orderTutorials("link")'>Link</th>
+          <th class = 'four columns click' ng-click = 'orderTutorials("tags")'>Tags</th>
+          <th class = 'two columns click' ng-click = 'orderTutorials("rating")'>Rating</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat = 'tutorial in userTutorials' class = 'border-underneath'>
+        <tr ng-repeat = 'tutorial in userTutorials | orderBy:predicate:reverse' class = 'border-underneath'>
           <td class = 'six columns'><a href = '{{tutorial.link}}' target = '_blank'>{{tutorial.link}}</a></td>
           <td class = 'four columns'>{{tutorial.tags[0]}}</td>
           <td class = 'two columns'>{{tutorial.rating}}/5</td>
@@ -38,6 +38,18 @@
     </table>
     </div>
 
+    </div>
+
+    <br>
+
+      <div class = 'row'>
+       <div class = 'offset-by-five two columns center-text logout'>
+       <a href = '/'>
+        <button class = 'u-full-width button-primary'>
+        Home
+        </button>
+        </a>
+      </div>
     </div>
 
 
