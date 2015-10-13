@@ -20,7 +20,7 @@ var userRoutes = require('./routes/users.js');
 
 
 // *** express instance *** //
-console.log(process.env);
+console.log(process.env.githubClientSecret);
 var app = express();
 
 // *** mongoose *** //
