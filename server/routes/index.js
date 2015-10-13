@@ -22,7 +22,7 @@ router.get('/auth/github',
   github.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/auth/github/callback',
-  github.authenticate('github', { failureRedirect: '/' }),
+  github.authenticate('github', { failureRedirect: '/', successRedirect : '/resources' }),
   function(req, res) {
     console.log(req.user);
     console.log('testing');
