@@ -10,13 +10,13 @@ node_js:
   - "iojs"
 
 services:
- - mongodb
+  - mongodb
 
 # before_script:
 #  - 'stuff'
 
  script:
- - mocha
+  - mocha
 
  # after_script:
  # - 'after_script'
