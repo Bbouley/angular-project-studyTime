@@ -328,8 +328,8 @@ th,
 td {
   padding: 12px 15px;
   text-align: left;
-  word-wrap: break-word;
 }
+td{word-wrap: break-word;}
  tr{ border-bottom: solid #33C3F0 1px; }
 th:first-child,
 td:first-child {
