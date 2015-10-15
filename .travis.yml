@@ -11,8 +11,8 @@ node_js:
 services:
   - mongodb
 
-# before_script:
-#  - 'stuff'
+before_script:
+  - 'stuff'
 
 script:
   - mocha
