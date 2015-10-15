@@ -10,7 +10,7 @@ node_js:
   - "iojs"
 
 services:
- - 'mongodb'
+ - mongodb
 
 # before_script:
 #  - 'stuff'
