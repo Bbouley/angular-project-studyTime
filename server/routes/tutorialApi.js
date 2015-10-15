@@ -9,14 +9,14 @@ var Note = require('../models/notes');
 
 //get all tutorials
 router.get('/tutorials', function(req, res, next){
-  // Tutorial.findQ()
-  // .then(function(data){
-  //   res.json(data);
-  // })
-  // .catch(function(err){
-  //   res.json({'ERROR' : err});
-  // })
-  // .done();
+  Tutorial.findQ()
+  .then(function(data){
+    res.json(data);
+  })
+  .catch(function(err){
+    res.json({'ERROR' : err});
+  })
+  .done();
 });
 
 //get single tutorial
