@@ -14,7 +14,7 @@ services:
 # before_script:
 #  - 'stuff'
 
- script:
+script:
   - mocha
 
  # after_script:
