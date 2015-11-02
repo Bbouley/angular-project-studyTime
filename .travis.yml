@@ -1,0 +1,21 @@
+language:
+  - node_js
+node_js:
+  - "4.1"
+  - "4.0"
+  - "0.12"
+  - "0.11"
+  - "0.10"
+
+
+services:
+  - mongodb
+
+before_script:
+  - npm install mocha -g
+
+script:
+  - mocha
+
+ # after_script:
+ # - 'after_script'
